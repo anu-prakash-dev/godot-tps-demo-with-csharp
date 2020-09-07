@@ -67,6 +67,7 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Menu
             }
 
             var d = JSON.Parse(f.GetAsText());
+            f.Close();
 
             if (!(d.Result is Dictionary _dict))
             {
@@ -109,6 +110,7 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Menu
                 {"fullscreen",  Fullscreen}
             };
             f.StoreLine(JSON.Print(d));
+            f.Close();
         }
     }
 }
