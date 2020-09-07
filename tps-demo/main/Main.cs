@@ -7,8 +7,7 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Main
     {
         public override void _Ready()
         {
-            // Todo: Missing C# Translate
-            // OS.WindowFullscreen = 
+            OS.WindowFullscreen = GetNode<Menu.Settings>("/root/Settings2").Fullscreen;
             GoToMainMenu();
         }
 
