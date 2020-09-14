@@ -129,6 +129,8 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Menu
         {
             _loading_thread.WaitToFinish();
             EmitSignal("replace_main_scene", loader.GetResource());
+            // Issue: https://github.com/godotengine/godot/issues/33809
+            _res_loader.Dispose();
             _res_loader = null;
         }
 
