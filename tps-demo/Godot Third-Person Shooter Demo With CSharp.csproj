@@ -57,6 +57,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="level\Level.cs" />
     <Compile Include="main\Main.cs" />
     <Compile Include="menu\Menu.cs" />
     <Compile Include="menu\Settings.cs" />

@@ -128,7 +128,7 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Menu
         private void loading_done(ResourceInteractiveLoader loader)
         {
             _loading_thread.WaitToFinish();
-            EmitSignal("replace_main_scene", loader.GetResource());
+            EmitSignal(nameof(replace_main_scene), loader.GetResource());
             // Issue: https://github.com/godotengine/godot/issues/33809
             _res_loader.Dispose();
             _res_loader = null;
@@ -147,7 +147,7 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Menu
 
             if (ResourceLoader.HasCached(path))
             {
-                EmitSignal("replace_main_scene", ResourceLoader.Load<PackedScene>(path));
+                EmitSignal(nameof(replace_main_scene), ResourceLoader.Load<PackedScene>(path));
             }
             else
             {
