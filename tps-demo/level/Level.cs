@@ -26,18 +26,14 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Level
                 GetNode<Spatial>("ReflectionProbes").Show();
             }
 
-
-             GD.Print(GetTree().Root == GetNode<Viewport>("/root"));
-
             if (settings.AAQuality == Settings.AAQualityEnum.AA_8x)
-                GetNode<Viewport>("/root").Msaa = Viewport.MSAA.Msaa8x;
+                GetTree().Root.Msaa = Viewport.MSAA.Msaa8x;
             else if (settings.AAQuality == Settings.AAQualityEnum.AA_4x)
-                GetNode<Viewport>("/root").Msaa = Viewport.MSAA.Msaa4x;
+                GetTree().Root.Msaa = Viewport.MSAA.Msaa4x;
             else if (settings.AAQuality == Settings.AAQualityEnum.AA_2x)
-                GetNode<Viewport>("/root").Msaa = Viewport.MSAA.Msaa2x;
+                GetTree().Root.Msaa = Viewport.MSAA.Msaa2x;
             else
-                GetNode<Viewport>("/root").Msaa = Viewport.MSAA.Disabled;
-
+                GetTree().Root.Msaa = Viewport.MSAA.Disabled;
 
             if (settings.SSAOQuality == Settings.SSAOQualityEnum.High)
                 _worldEnvironment.Environment.SsaoQuality = Godot.Environment.SSAOQuality.High;
@@ -45,7 +41,6 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Level
                 _worldEnvironment.Environment.SsaoQuality = Godot.Environment.SSAOQuality.Low;
             else
                 _worldEnvironment.Environment.SsaoEnabled = false;
-
 
             if (settings.Resolution == Settings.ResolutionEnum.Native) { }
             else if (settings.Resolution == Settings.ResolutionEnum.Res_1080)
