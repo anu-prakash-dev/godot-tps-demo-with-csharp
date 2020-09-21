@@ -57,10 +57,17 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="door\Door.cs" />
+    <Compile Include="enemies\red_robot\RedRobot.cs" />
     <Compile Include="level\Level.cs" />
+    <Compile Include="level\Debug.cs" />
+    <Compile Include="level\ShaderCache.cs" />
     <Compile Include="main\Main.cs" />
     <Compile Include="menu\Menu.cs" />
     <Compile Include="menu\Settings.cs" />
+    <Compile Include="player\bullet\Bullet.cs" />
+    <Compile Include="player\CameraNoiseShakeEffect.cs" />
+    <Compile Include="player\PlayerEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

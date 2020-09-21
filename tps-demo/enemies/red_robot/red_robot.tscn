@@ -1,6 +1,6 @@
 [gd_scene load_steps=64 format=2]
 
-[ext_resource path="res://enemies/red_robot/red_robot.gd" type="Script" id=1]
+[ext_resource path="res://enemies/red_robot/RedRobot.cs" type="Script" id=1]
 [ext_resource path="res://enemies/red_robot/model/red_robot.dae" type="PackedScene" id=2]
 [ext_resource path="res://enemies/red_robot/parts/ray.obj" type="ArrayMesh" id=3]
 [ext_resource path="res://enemies/red_robot/parts/ray.shader" type="Shader" id=4]
@@ -164,7 +164,7 @@ input_3/auto_advance = false
 
 [sub_resource type="AnimationNodeBlendTree" id=26]
 resource_local_to_scene = true
-graph_offset = Vector2( 0, 196.5 )
+graph_offset = Vector2( -342.536, 109 )
 nodes/Animation/node = SubResource( 14 )
 nodes/Animation/position = Vector2( -200, 100 )
 "nodes/Animation 2/node" = SubResource( 8 )
@@ -321,10 +321,10 @@ tracks/9/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
-"method": "shoot_check"
+"method": "ShootCheck"
 }, {
 "args": [  ],
-"method": "resume_approach"
+"method": "ResumeApproach"
 } ]
 }
 tracks/10/type = "audio"
@@ -553,7 +553,7 @@ script = ExtResource( 1 )
 bones/14/bound_children = [ NodePath("RayFrom") ]
 
 [node name="RayFrom" type="BoneAttachment" parent="RedRobotModel/Armature/Skeleton" index="4"]
-transform = Transform( -0.999994, -0.00279503, -0.00183882, -0.00279578, 0.999996, 0.000401379, 0.0018377, 0.000406517, -0.999998, -0.0288596, 1.94004, 0.194757 )
+transform = Transform( -0.997803, -0.0153425, 0.0644564, -0.00332376, 0.983187, 0.182574, -0.0661739, 0.181958, -0.981077, -0.0243649, 1.95882, 0.254723 )
 bone_name = "CannonAnimRecoil"
 
 [node name="RayMesh" type="MeshInstance" parent="RedRobotModel/Armature/Skeleton/RayFrom"]
@@ -754,6 +754,7 @@ anims/kaboom = SubResource( 43 )
 
 [node name="Particles" type="CPUParticles" parent="Death"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.213713, 0.763735, 0 )
+emitting = false
 amount = 32
 one_shot = true
 explosiveness = 1.0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://player/bullet/bullet.gd" type="Script" id=1]
+[ext_resource path="res://player/bullet/Bullet.cs" type="Script" id=1]
 [ext_resource path="res://player/bullet/blue_myst.png" type="Texture" id=2]
 [ext_resource path="res://player/bullet/bullet_explode.wav" type="AudioStream" id=3]
 
