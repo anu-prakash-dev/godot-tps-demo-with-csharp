@@ -296,7 +296,7 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Player
                 orthonormalizedBasis = orthonormalizedBasis.Scaled(Vector3.NegOne);
             }
 
-            return orthonormalizedBasis.Quat().Normalized();
+            return orthonormalizedBasis.Quat()
         }
     }
 }
