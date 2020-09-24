@@ -32,7 +32,7 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Enemies
 
         private PlayerEntity _player = null;
         private Vector3 _velocity = new Vector3();
-        private Transform _orientation = new Transform();
+        private Transform _orientation = Transform.Identity;
 
         private AnimationTree _animationTree;
         private AnimationPlayer _shootAnimation;

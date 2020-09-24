@@ -3,6 +3,24 @@ using System;
 
 namespace GodotThirdPersonShooterDemoWithCSharp.Player
 {
+    // Temporally till it gotta fixed
+    public static class BasisEx
+    {
+        static public Quat RotationQuat(this Basis b)
+        {
+            Basis orthonormalizedBasis = b.Orthonormalized();
+            float det = orthonormalizedBasis.Determinant();
+            if (det < 0)
+            {
+                // Ensure that the determinant is 1, such that result is a proper
+                // rotation matrix which can be represented by Euler angles.
+                orthonormalizedBasis = orthonormalizedBasis.Scaled(-Vector3.One);
+            }
+
+            return orthonormalizedBasis.Quat();
+        }
+    }
+
     public class PlayerEntity : KinematicBody
     {
         private PackedScene BulletScene = ResourceLoader.Load<PackedScene>("res://player/bullet/bullet.tscn");
@@ -21,8 +39,9 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Player
 
         private float _airborneTime = 100;
 
-        private Transform _orientation = new Transform();
-        private Transform _rootMotion = new Transform();
+        private Transform _orientation = Transform.Identity;
+        private Transform _orientationBkp = Transform.Identity;
+        private Transform _rootMotion = Transform.Identity;
         private Vector2 _motion = new Vector2();
         private Vector3 _velocity = new Vector3();
 
@@ -52,7 +71,6 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Player
 
         public PlayerEntity()
         {
-            // _init
             if (!Engine.EditorHint) Input.SetMouseMode(Input.MouseMode.Captured);
         }
 
@@ -84,6 +102,7 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Player
             // Pre-initialize orientation transform.
             _orientation = _playerModel.GlobalTransform;
             _orientation.origin = new Vector3();
+            _orientationBkp = _orientation;
         }
 
         public override void _Process(float delta)
@@ -183,8 +202,8 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Player
                     _animationTree.Set("parameters/aim/add_amount", _cameraXRot / Mathf.Deg2Rad(CameraXRotMin));
 
                 // Convert orientation to quaternions for interpolating rotation.
-                var qFrom = RotationQuat(_orientation.basis);
-                var qTo = RotationQuat(_cameraBase.GlobalTransform.basis);
+                var qFrom = _orientation.basis.RotationQuat();
+                var qTo = _cameraBase.GlobalTransform.basis.RotationQuat();
                 // Interpolate current rotation with desired one.
                 _orientation.basis = new Basis(qFrom.Slerp(qTo, delta * RotationInterpolateSpeed));
 
@@ -226,8 +245,8 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Player
                 var target = cameraX * _motion.x + cameraZ * _motion.y;
                 if (target.Length() > 0.001)
                 {
-                    var qFrom = RotationQuat(_orientation.basis);
-                    var qTo = RotationQuat(new Transform().LookingAt(target, Vector3.Up).basis);
+                    var qFrom = _orientation.basis.RotationQuat();
+                    var qTo = Transform.Identity.LookingAt(target, Vector3.Up).basis.RotationQuat();
 
                     _orientation.basis = new Basis(qFrom.Slerp(qTo, delta * RotationInterpolateSpeed));
                 }
@@ -243,7 +262,7 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Player
             }
 
             // Apply root motion to orientation.
-            _orientation *= _rootMotion;
+            _orientation = _orientation * _rootMotion;
 
             var hVelocity = _orientation.origin / delta;
             _velocity.x = hVelocity.x;
@@ -280,23 +299,9 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Player
             _cameraXRot += move.y;
             _cameraXRot = Mathf.Clamp(_cameraXRot, Mathf.Deg2Rad(CameraXRotMin), Mathf.Deg2Rad(CameraXRotMax));
 
-            var rotation = _cameraBase.Rotation;
+            var rotation = _cameraRot.Rotation;
             rotation.x = _cameraXRot;
             _cameraRot.Rotation = rotation;
-        }
-
-        // https://github.com/godotengine/godot/blob/dc456059a4ccd2583ad8ceac8612b4e6686aa4a4/modules/mono/glue/GodotSharp/GodotSharp/Core/Basis.cs#L210
-        private Quat RotationQuat(Basis b)
-        {
-            Basis orthonormalizedBasis = b.Orthonormalized();
-            float det = orthonormalizedBasis.Determinant();
-            if (det < 0)
-            {
-                // Ensure that the determinant is 1, such that result is a proper rotation matrix which can be represented by Euler angles.
-                orthonormalizedBasis = orthonormalizedBasis.Scaled(Vector3.NegOne);
-            }
-
-            return orthonormalizedBasis.Quat()
         }
     }
 }
