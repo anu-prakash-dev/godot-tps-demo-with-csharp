@@ -163,7 +163,7 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Menu
             _settingsMenu.Show();
             _settingsActionCancel.GrabFocus();
 
-            var settings = GetNode<Settings>("/root/Settings2");
+            var settings = GetNode<Settings>("/root/Settings");
 
             if (settings.GIQuality == Settings.GIQualityEnum.High)
                 _giHigh.Pressed = true;
@@ -214,7 +214,7 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Menu
             _playButton.GrabFocus();
             _settingsMenu.Hide();
 
-            var settings = GetNode<Settings>("/root/Settings2");
+            var settings = GetNode<Settings>("/root/Settings");
 
             if (_giHigh.Pressed)
                 settings.GIQuality = Settings.GIQualityEnum.High;

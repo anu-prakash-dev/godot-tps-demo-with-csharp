@@ -7,7 +7,7 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Main
     {
         public override void _Ready()
         {
-            OS.WindowFullscreen = GetNode<Menu.Settings>("/root/Settings2").Fullscreen;
+            OS.WindowFullscreen = GetNode<Menu.Settings>("/root/Settings").Fullscreen;
             GoToMainMenu();
         }
 

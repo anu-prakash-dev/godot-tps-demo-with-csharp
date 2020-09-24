@@ -14,7 +14,7 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Level
         public override void _Ready()
         {
             _worldEnvironment = GetNode<WorldEnvironment>("WorldEnvironment");
-            var settings = GetNode<Settings>("/root/Settings2");
+            var settings = GetNode<Settings>("/root/Settings");
 
             if (settings.GIQuality == Settings.GIQualityEnum.High)
                 ProjectSettings.SetSetting("rendering/quality/voxel_cone_tracing/high_quality", true);
