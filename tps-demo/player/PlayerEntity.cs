@@ -40,7 +40,6 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Player
         private float _airborneTime = 100;
 
         private Transform _orientation = Transform.Identity;
-        private Transform _orientationBkp = Transform.Identity;
         private Transform _rootMotion = Transform.Identity;
         private Vector2 _motion = new Vector2();
         private Vector3 _velocity = new Vector3();
@@ -102,7 +101,6 @@ namespace GodotThirdPersonShooterDemoWithCSharp.Player
             // Pre-initialize orientation transform.
             _orientation = _playerModel.GlobalTransform;
             _orientation.origin = new Vector3();
-            _orientationBkp = _orientation;
         }
 
         public override void _Process(float delta)
